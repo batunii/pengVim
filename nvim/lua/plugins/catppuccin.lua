@@ -3,7 +3,7 @@ return {
 		"catppuccin/nvim",
 		name = "catppuccin",
 		priority = 1000,
-		config = function()		--- config function is run first and automatically
+		config = function() --- config function is run first and automatically
 			require("catppuccin").setup({
 				no_italic = true,
 				term_colors = true,
@@ -39,7 +39,7 @@ return {
 					},
 				},
 			})
-		vim.cmd.colorscheme "catppuccin"
-		end
-	}
+			vim.cmd.colorscheme("catppuccin")
+		end,
+	},
 }

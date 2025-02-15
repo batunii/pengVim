@@ -36,10 +36,12 @@ keymap("n", "<C-h>", ":vertical resize +2<CR>", opts)
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
+keymap("n", "<S-Right>", ":bnext<CR>", opts)
+keymap("n", "<S-Left>", ":bprevious<CR>", opts)
 
 -- Insert --
 -- Press jk fast to enter
-keymap("i", "jk", "<ESC>", opts)
+--keymap("i", "jk", "<ESC>", opts)
 keymap("i", "[", "[]<Left>", opts)
 keymap("i", "{", "{}<Left>", opts)
 keymap("i", "(", "()<Left>", opts)
@@ -65,6 +67,9 @@ keymap("v", "p", '"_dP', opts)
 keymap("x", "<C-Down>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<C-Up>", ":move '<-2<CR>gv-gv", opts)
 
+--- Better dir navigation ---
+keymap("n", "<leader>cc", "<cmd>cd %:h <CR>", opts) --- change CWD to current dir
+
 -- Terminal --
 -- Better terminal navigation
 keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
@@ -77,9 +82,11 @@ keymap_api("n", "gH", vim.lsp.buf.hover, {})
 keymap_api("n", "gI", vim.lsp.buf.implementation, {})
 keymap_api("n", "gR", vim.lsp.buf.references, {})
 keymap_api("n", "gS", vim.lsp.buf.signature_help, {})
+keymap_api("n", "gd", vim.lsp.buf.definition, {})
+keymap_api("n", "gD", vim.lsp.buf.declaration, {})
 keymap_api("n", "<leader>ca", vim.lsp.buf.code_action, {})
 keymap_api("n", "gF", vim.lsp.buf.format, {})
-
+keymap("n", "gE", "<cmd>lua vim.diagnostic.open_float() <CR>", {})
 --- Telescope ---
 local builtin = require("telescope.builtin")
 keymap_api("n", "<leader>ff", builtin.find_files, {})
