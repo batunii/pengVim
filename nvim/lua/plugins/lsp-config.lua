@@ -35,19 +35,36 @@ return {
 
 			---
 			local capabilities = require("cmp_nvim_lsp").default_capabilities() --- getting those lsp completions from completions.lua
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.ts_ls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.pyright.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.clangd.setup({
-				capabilities = capabilities,
-			})
+			vim.lsp.config("lua_ls", { capabilities = capabilities })
+			vim.lsp.enable("lua_ls")
 
+			vim.lsp.config("lua_ls", { capabilities = capabilities })
+			vim.lsp.enable("lua_ls")
+			vim.lsp.config("pyright", { capabilities = capabilities })
+			vim.lsp.enable("pyright")
+			vim.lsp.config("ts_ls", { capabilities = capabilities })
+			vim.lsp.enable("ts_ls")
+			vim.lsp.config(
+				"clangd",
+				{ capabilities = capabilities, cmd = { "clangd", "--query-driver=/usr/bin/clang" } }
+			)
+			vim.lsp.enable("clangd")
+			--		lspconfig.lua_ls.setup({
+			--			capabilities = capabilities,
+			--		})
+			--			lspconfig.ts_ls.setup({
+			--				capabilities = capabilities,
+			--			})
+			--			lspconfig.pyright.setup({
+			--				capabilities = capabilities,
+			--			})
+			--			lspconfig.clangd.setup({
+			--				capabilities = capabilities,
+			--				cmd = {"clangd", "--query-driver=/usr/bin/clang"}
+			--			})
+			--			lspconfig.gopls.setup({
+			--				capabilities = capabilities,
+			--			})
 		end,
 	},
 }
