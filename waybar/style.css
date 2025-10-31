@@ -96,11 +96,22 @@ button:hover {
   padding: 0 10px;
   color: #ffffff;
 }
-#custom-power,
+
+#custom-power {
+  font-family:
+    "Noto Sans Mono", "Font Awesome 6 Free", "Font Awesome 6 Brands", monospace;
+}
+
+#custom-power:active {
+	background-color: #f797AD;
+}
+
+
 #tray {
   font-family:
     "Noto Sans Mono", "Font Awesome 6 Free", "Font Awesome 6 Brands", monospace;
 }
+
 #window,
 #workspaces {
   margin: 0 4px;
@@ -132,6 +143,7 @@ button:hover {
 #memory.critical {
   color: red;
 }
+
 #memory.warning {
   color: yellow;
 }
@@ -139,6 +151,7 @@ button:hover {
 #memory.good {
   color: lightgreen;
 }
+
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
   background-color: #f53c3c;
@@ -172,7 +185,6 @@ button:hover {
 label:focus {
   background-color: #000000;
 }
-
 
 #network.disconnected {
   color: #f53c3c;

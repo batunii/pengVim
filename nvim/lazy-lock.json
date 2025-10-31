@@ -8,6 +8,7 @@
   "cmp-path": { "branch": "main", "commit": "c642487086dbd9a93160e1679a1327be111cbc25" },
   "cmp_luasnip": { "branch": "master", "commit": "98d9cb5c2c38532bd9bdb481067b20fea8f32e90" },
   "friendly-snippets": { "branch": "main", "commit": "572f5660cf05f8cd8834e096d7b4c921ba18e175" },
+  "glsl_analyzer": { "branch": "main", "commit": "31690cb38c1d78aa831b503de0e4a45ba5bb8c7a" },
   "go.nvim": { "branch": "master", "commit": "db20146ef63322949af69b0955f80ee7d98145bd" },
   "guihua.lua": { "branch": "master", "commit": "c49a0fb7346586a1b1431d7e407f943c4164d8cb" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
