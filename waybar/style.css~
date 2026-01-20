@@ -1,0 +1,269 @@
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 13px;
+  border: none;
+  border-radius: 0;
+}
+
+/* -----------------------------------------------------
+   WAYBAR WINDOW
+   ----------------------------------------------------- */
+
+window#waybar {
+  background: #0f0f0f;
+  color: #eaeaea;
+  transition: background-color 0.5s;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* -----------------------------------------------------
+   WORKSPACES
+   ----------------------------------------------------- */
+
+#workspaces button {
+  padding: 0 8px;
+  color: #888888;
+  background: transparent;
+}
+
+#workspaces button.active,
+#workspaces button.focused {
+  color: #ea7a73;
+  box-shadow: inset 0 -2px #ea7a73;
+}
+
+#workspaces button.urgent {
+  color: #ffffff;
+  background: #ea7a73;
+}
+
+#workspaces button:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* -----------------------------------------------------
+   SUBMAP / MODE
+   ----------------------------------------------------- */
+
+#submap,
+#mode {
+  color: #ea7a73;
+  padding: 0 10px;
+}
+
+/* -----------------------------------------------------
+   COMMON MODULE STYLING (RESTORED COVERAGE)
+   ----------------------------------------------------- */
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#tray,
+#idle_inhibitor,
+#scratchpad,
+#keyboard-state,
+#language,
+#privacy,
+#power-profiles-daemon,
+#custom-media,
+#custom-power,
+#mpd {
+  padding: 0 10px;
+  color: #eaeaea;
+}
+
+/* -----------------------------------------------------
+   CPU / MEMORY STATES
+   ----------------------------------------------------- */
+
+#memory.critical {
+  color: #ff6b6b;
+}
+
+#memory.warning {
+  color: #f0c674;
+}
+
+#memory.good {
+  color: #98c379;
+}
+
+/* -----------------------------------------------------
+   TEMPERATURE
+   ----------------------------------------------------- */
+
+#temperature.critical {
+  color: #ff6b6b;
+}
+
+/* -----------------------------------------------------
+   AUDIO
+   ----------------------------------------------------- */
+
+#pulseaudio.muted,
+#wireplumber.muted {
+  color: #ea7a73;
+}
+
+#pulseaudio:hover {
+  background: rgba(234, 122, 115, 0.15);
+}
+
+/* -----------------------------------------------------
+   NETWORK
+   ----------------------------------------------------- */
+
+#network.disconnected {
+  color: #ff6b6b;
+}
+
+/* -----------------------------------------------------
+   BATTERY
+   ----------------------------------------------------- */
+
+#battery.charging,
+#battery.plugged {
+  color: #98c379;
+}
+
+#battery.warning {
+  color: #f0c674;
+}
+
+#battery.critical {
+  color: #ea7a73;
+}
+
+/* -----------------------------------------------------
+   POWER PROFILES
+   ----------------------------------------------------- */
+
+#power-profiles-daemon.performance {
+  color: #ea7a73;
+}
+
+#power-profiles-daemon.balanced {
+  color: #eaeaea;
+}
+
+#power-profiles-daemon.power-saver {
+  color: #98c379;
+}
+
+/* -----------------------------------------------------
+   MPD
+   ----------------------------------------------------- */
+
+#mpd {
+  color: #98c379;
+}
+
+#mpd.paused {
+  color: #f0c674;
+}
+
+#mpd.stopped {
+  color: #888888;
+}
+
+#mpd.disconnected {
+  color: #ff6b6b;
+}
+
+/* -----------------------------------------------------
+   CUSTOM MEDIA
+   ----------------------------------------------------- */
+
+#custom-media {
+  min-width: 100px;
+}
+
+/* -----------------------------------------------------
+   SCRATCHPAD
+   ----------------------------------------------------- */
+
+#scratchpad {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+#scratchpad.empty {
+  background: transparent;
+}
+
+/* -----------------------------------------------------
+   KEYBOARD STATE
+   ----------------------------------------------------- */
+
+#keyboard-state {
+  color: #0f0f0f;
+  background: #98c379;
+}
+
+#keyboard-state > label {
+  padding: 0 6px;
+}
+
+#keyboard-state > label.locked {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* -----------------------------------------------------
+   PRIVACY
+   ----------------------------------------------------- */
+
+#privacy-item {
+  padding: 0 6px;
+  color: #ffffff;
+}
+
+#privacy-item.screenshare {
+  background: #cf5700;
+}
+
+#privacy-item.audio-in {
+  background: #1ca000;
+}
+
+#privacy-item.audio-out {
+  background: #0069d4;
+}
+
+/* -----------------------------------------------------
+   TRAY
+   ----------------------------------------------------- */
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background: #ea7a73;
+}
+
+/* -----------------------------------------------------
+   POWER BUTTON
+   ----------------------------------------------------- */
+
+#custom-power {
+  color: #ea7a73;
+}
+
+#custom-power:hover {
+  background: rgba(234, 122, 115, 0.15);
+}
+
+#custom-power:active {
+  background: #ea7a73;
+  color: #0f0f0f;
+}
