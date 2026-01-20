@@ -70,12 +70,24 @@ keymap("x", "<C-Up>", ":move '<-2<CR>gv-gv", opts)
 --- Better dir navigation ---
 keymap("n", "<leader>cc", "<cmd>cd %:h <CR>", opts) --- change CWD to current dir
 
+
 -- Terminal --
+keymap("n", "<leader>tv", "<cmd>ToggleTerm size=20 direction=vertical<CR>", { desc = "Toggle vertical terminal" })
+keymap("n", "<leader>th", "<cmd>ToggleTerm size=20 direction=horizontal<CR>", { desc = "Toggle horizontal terminal" })
+keymap("n", "<leader>tf", "<cmd>ToggleTerm size=20 direction=float<CR>", { desc = "Toggle floating terminal" })
 -- Better terminal navigation
-keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
-keymap("t", "<C-k>", "<C-\\><C-N><C-w>j", term_opts)
-keymap("t", "<C-j>", "<C-\\><C-N><C-w>k", term_opts)
-keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+keymap("t", "<ESC>", "<C-\\><C-n>", term_opts)
+keymap("t", "<C-j>", "<cmd>resize +2 <CR>", term_opts)
+keymap("t", "<C-k>", "<cmd>resize -2 <CR>", term_opts)
+keymap("t", "<C-l>", "<cmd>vertical resize -2 <CR>", term_opts)
+keymap("t", "<C-h>", "<cmd>vertical resize +2 <CR>", term_opts)
+
+--keymap("n","<C-t>", "<cmd> belowright split | terminal <CR> i", term_opts)
+--keymap("t","<C-t>", "<C-\\><C-n>:q<CR>", term_opts)
+--keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
+--keymap("t", "<C-k>", "<C-\\><C-N><C-w>j", term_opts)
+--keymap("t", "<C-j>", "<C-\\><C-N><C-w>k", term_opts)
+--keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
 -- LSP Keymaps LUA --
 keymap_api("n", "gH", vim.lsp.buf.hover, {})
@@ -86,8 +98,13 @@ keymap_api("n", "gd", vim.lsp.buf.definition, {})
 keymap_api("n", "gD", vim.lsp.buf.declaration, {})
 keymap_api("n", "<leader>ca", vim.lsp.buf.code_action, {})
 keymap_api("n", "gF", vim.lsp.buf.format, {})
+keymap_api("n", "gr", vim.lsp.buf.rename, {})
 keymap("n", "gE", "<cmd>lua vim.diagnostic.open_float() <CR>", {})
+
 --- Telescope ---
 local builtin = require("telescope.builtin")
 keymap_api("n", "<leader>ff", builtin.find_files, {})
 keymap_api("n", "<leader>fg", builtin.live_grep, {})
+
+--- lazygit ---
+keymap("n", "<leader>gg", "<cmd>LazyGit <CR>", {desc='lazygit'})

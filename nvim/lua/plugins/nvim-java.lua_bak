@@ -3,8 +3,10 @@ return {
 	config = function()
 		require("java").setup()
 		local capabilities = require("cmp_nvim_lsp").default_capabilities() --- same from completions.lua and lsp-config.lua
-		require("lspconfig").jdtls.setup({
-			capabilities = capabilities,
-		})
+		vim.lsp.config("jdtls",
+		--require("lspconfig").jdtls.setup(
+			{capabilities = capabilities,}
+		)
+		vim.lsp.enable("jdtls")
 	end,
 }

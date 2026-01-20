@@ -20,7 +20,7 @@ return {
 			cmp.setup({
 				snippet = {
 					-- REQUIRED - you must specify a snippet engine
-					expand = function(args) --- what happens after you click on enter?
+					expand = function(args)    --- what happens after you click on enter?
 						--	vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
 						require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
 						-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
@@ -33,10 +33,10 @@ return {
 					documentation = cmp.config.window.bordered(),
 				},
 				mapping = cmp.mapping.preset.insert({
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-up>"] = cmp.mapping.scroll_docs(-4),
+					["<C-down>"] = cmp.mapping.scroll_docs(4),
 					["<C-Space>"] = cmp.mapping.complete(),
-					["<C-e>"] = cmp.mapping.abort(),
+					["<esc>"] = cmp.mapping.abort(),
 					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 				}),
 				sources = cmp.config.sources({

@@ -1,0 +1,194 @@
+// -*- mode: jsonc -*-
+{
+  "position": "bottom",
+  "height": 20,
+  "spacing": 2,
+
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/submap",
+    "hyprland/scratchpad"
+  ],
+
+  "modules-right": [
+    "mpd",
+    "network",
+    "power-profiles-daemon",
+    "cpu",
+    "memory",
+    "disk",
+    "temperature",
+    "backlight",
+    "clock",
+    "battery",
+    "pulseaudio",
+    "tray",
+    "custom/power"
+  ],
+
+  /* ───────────────
+     WORKSPACES
+     ─────────────── */
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{id}"
+  },
+
+  "hyprland/submap": {
+    "format": "<span style=\"italic\">󰆔 {}</span>",
+    "tooltip": false
+  },
+
+  "hyprland/scratchpad": {
+    "format": "{icon} {count}",
+    "show-empty": false,
+    "format-icons": ["", ""],
+    "tooltip": true
+  },
+
+  /* ───────────────
+     MPD
+     ─────────────── */
+  "mpd": {
+    "format": "{stateIcon} {artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) {volume}% ",
+    "format-disconnected": "Disconnected ",
+    "format-stopped": "Stopped ",
+    "interval": 5,
+    "state-icons": {
+      "paused": "",
+      "playing": ""
+    }
+  },
+
+  /* ───────────────
+     SYSTEM
+     ─────────────── */
+  "cpu": {
+    "format": "{usage}% ",
+    "tooltip": false
+  },
+
+  "memory": {
+    "interval": 60,
+    "format": "{used:0.1f}GiB/{avail:0.1f}GiB ",
+    "tooltip-format": "{}%"
+  },
+
+  "disk": {
+    "path": "/",
+    "format": "{used}/{free} ",
+    "format-alt": "{total} ",
+    "tooltip-format": "{percentage_used}%"
+  },
+
+  "temperature": {
+    "critical-threshold": 80,
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": ["", "", ""]
+  },
+
+  /* ───────────────
+     BACKLIGHT
+     ─────────────── */
+  "backlight": {
+    "format": "{percent}% {icon}",
+    "format-icons": ["🌑", "🌘", "🌗", "🌖", "🌕"]
+  },
+
+  /* ───────────────
+     NETWORK
+     ─────────────── */
+  "network": {
+    // "interface": "wlp2*", // (Optional) To force the use of this interface
+    "format-wifi": "{icon}{ipaddr}/{cidr} {essid} {signalStrength}%</span>",
+    "format-ethernet": "{ipaddr}/{cidr} ",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "Disconnected ⚠",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "format-icons": [
+        "<span color=\"#ff0000\">",  // Red: 0-20% (poor)
+        "<span color=\"#ff6600\">",  // Orange: 21-40% (weak)
+        "<span color=\"#ffff00\">",  // Yellow: 41-60% (fair)
+        "<span color=\"#66ff00\">",  // Light green: 61-80% (good)
+        "<span color=\"#00ff00\">"   // Green: 81-100% (excellent)
+    ]
+  },
+
+  /* ───────────────
+     AUDIO
+     ─────────────── */
+  "pulseaudio": {
+    "format": "{volume}% {icon} {format_source}",
+    "format-muted": "<span color=\"#ff0000\">󰝟</span>",
+    "format-source": "{volume}% ",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "󰥰",
+      "headset": "",
+      "phone": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  },
+
+  /* ───────────────
+     BATTERY
+     ─────────────── */
+  "battery": {
+    "interval": 100,
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    "format-icons": ["", "", "", "", ""]
+  },
+
+  /* ───────────────
+     CLOCK
+     ─────────────── */
+  "clock": {
+    "format": "{:%Y-%m-%d %H:%M}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>"
+  },
+
+  /* ───────────────
+     POWER PROFILE
+     ─────────────── */
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Profile: {profile}",
+    "format-icons": {
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+
+  /* ───────────────
+     TRAY
+     ─────────────── */
+  "tray": {
+    "spacing": 10
+  },
+
+  /* ───────────────
+     POWER MENU
+     ─────────────── */
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "$HOME/.config/waybar/power_menu.xml",
+    "menu-actions": {
+      "shutdown": "systemctl poweroff -i",
+      "reboot": "systemctl reboot",
+      "suspend": "systemctl suspend",
+      "hibernate": "systemctl hibernate"
+    }
+  }
+}

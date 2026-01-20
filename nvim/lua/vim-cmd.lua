@@ -2,5 +2,5 @@
 vim.cmd("set number relativenumber");
 vim.g.mapleader = " ";
 vim.g.maplocalleader = " "
-vim.cmd("set tabstop=4 shiftwidth=4")
+vim.cmd("set tabstop=2 shiftwidth=2")
 vim.cmd("set clipboard=unnamedplus")

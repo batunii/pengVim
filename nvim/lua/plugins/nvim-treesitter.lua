@@ -1,5 +1,6 @@
 return {
 	"nvim-treesitter/nvim-treesitter", --- this is for good highlighting of code
+	branch = "master",
 	build = function()
 		require("nvim-treesitter.install").update({ with_sync = true })()
 	end,

@@ -1,4 +1,4 @@
--- Set up path for lazy to set
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 -- if Lazy not present, clone and get It
