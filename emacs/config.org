@@ -1,4 +1,6 @@
 #+TITLE: GNU Emacs Config
+  WindowMaker window_maker(SCR, SCR);
+  GLFWwindow *window = window_maker.make_window();
 #+AUTHOR: batunii
 #+DESCRIPTION: A modern Emacs configuration with Evil, LSP, Tree-sitter, and completion
 #+STARTUP: showeverything
@@ -37,6 +39,9 @@
 - [[#version-control][VERSION CONTROL]]
   - [[#custom-function][Custom Function]]
   - [[#native-compilation][Native Compilation]]
+  - [[#tldr][TLDR;]]
+  - [[#glsl][GLSL]]
+  - [[#compilation-window][Compilation Window]]
 
 * PERFORMANCE OPTIMIZATIONS
 #+begin_src emacs-lisp
@@ -335,9 +340,10 @@
 
 ** LSP Mode
 #+begin_src emacs-lisp
-  (use-package lsp-pyright
+(use-package lsp-pyright
   :ensure t
-  :hook (python-ts-mode . (lambda () (require 'lsp-pyright) (lsp))))
+  :after lsp-mode
+  :hook (python-ts-mode . lsp-pyright))
   (use-package lsp-mode
     :ensure t
     :commands lsp
@@ -548,4 +554,45 @@
            (native-comp-available-p))
   (setq native-comp-async-report-warnings-errors nil  ; Silence warnings
         native-comp-deferred-compilation t))  ; Compile packages in background
+#+end_src
+
+** TLDR;
+
+#+begin_src emacs-lisp
+  (use-package tldr
+    :ensure t)
+#+end_src
+
+** GLSL
+#+begin_src emacs-lisp
+  (use-package glsl-mode
+    :ensure t)
+  (with-eval-after-load 'lsp-mode
+  ;; Disable the old GLSL server completely
+  (setq lsp-disabled-clients '(glslls))
+
+  ;; Register glsl_analyzer explicitly
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection
+    (lsp-stdio-connection
+     '("/usr/local/bin/glsl_analyzer"))
+    :activation-fn (lsp-activate-on "glsl")
+    :server-id 'glsl-analyzer)))
+
+#+end_src
+
+
+** Compilation Window
+#+begin_src emacs-lisp
+  (add-to-list 'display-buffer-alist
+             '("\\*compilation\\*"
+               (display-buffer-at-bottom)
+               (window-height . 0.3)))
+(defun batunii/select-compilation-window (_proc)
+  "Select the compilation window after it is displayed."
+  (when-let ((win (get-buffer-window "*compilation*" t)))
+    (select-window win)))
+
+(add-hook 'compilation-start-hook #'batunii/select-compilation-window)
 #+end_src
