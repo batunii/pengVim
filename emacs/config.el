@@ -270,6 +270,11 @@
           lsp-modeline-workspace-status-enable nil)
 
   )
+<<<<<<< Updated upstream
+=======
+(use-package apheleia
+  :ensure t)
+>>>>>>> Stashed changes
 
   ;; Move breadcrumbs to mode-line
   (defun batunii/lsp-modeline-setup ()

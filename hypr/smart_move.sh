@@ -9,17 +9,50 @@ ACTIVE_ID="$(echo "$ACTIVE_JSON" | jq -r '.address')"
 GROUP="$(echo "$ACTIVE_JSON" | jq '.grouped')"
 GROUP_LEN="$(echo "$GROUP" | jq 'length')"
 
-# ---------- NOT GROUPED ----------
+ACTIVE_WS=$(hyprctl activeworkspace -j | jq -r '.id')
+ACTIVE_MON=$(hyprctl activewindow -j | jq -r '.monitor')
+
+ACTIVE_WS=$(hyprctl activeworkspace -j | jq -r '.id')
+ACTIVE_MON=$(hyprctl activewindow -j | jq -r '.monitor')
+
+ACTIVE_WS=$(hyprctl activeworkspace -j | jq -r '.id')
+
+HAS_GROUP=$(hyprctl clients -j | jq --argjson ws "$ACTIVE_WS" '
+  any(.[];
+    (.workspace.id == $ws) and
+    ((.grouped | length) > 0)
+  )
+')
+echo "$HAS_GROUP"
 if [ "$GROUP_LEN" -eq 0 ]; then
-    # Try entering a group
-    if hyprctl dispatch moveintogroup "$DIR" 2>/dev/null; then
-        exit 0
+    if [ "$HAS_GROUP" = "true" ]; then
+        if hyprctl dispatch moveintogroup "$DIR" 2>/dev/null; then
+            exit 0
+        fi
     fi
 
-    # Fallback: normal move
     hyprctl dispatch movewindow "$DIR"
     exit 0
 fi
+
+
+
+
+
+
+
+# ---------- NOT GROUPED ----------
+# if [ "$GROUP_LEN" -eq 0 ]; then
+#     # Try entering a group
+#     if hyprctl dispatch moveintogroup "$DIR" 2>/dev/null; then
+#         exit 0
+#     fi
+
+#     echo "Still here"
+#     # Fallback: normal move
+#     hyprctl dispatch movewindow "$DIR"
+#     exit 0
+# fi
 
 # ---------- GROUPED ----------
 # Find index of active window in group

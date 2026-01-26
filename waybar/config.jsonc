@@ -153,7 +153,8 @@
      ─────────────── */
   "clock": {
     "format": "{:%Y-%m-%d %H:%M}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>"
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
+    "on-click": "gnome-calendar"
   },
 
   /* ───────────────

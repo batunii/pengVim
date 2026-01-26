@@ -340,89 +340,99 @@
 
 ** LSP Mode
 #+begin_src emacs-lisp
+<<<<<<< Updated upstream
 (use-package lsp-pyright
   :ensure t
   :after lsp-mode
   :hook (python-ts-mode . lsp-pyright))
   (use-package lsp-mode
+=======
+  (use-package lsp-pyright
+>>>>>>> Stashed changes
     :ensure t
-    :commands lsp
-    :diminish (lsp-mode . " LSP")
-    :hook ((python-ts-mode . lsp)
-           (c-ts-mode . lsp)
-           (c++-ts-mode . lsp)
-           (js-ts-mode . lsp)
-           (lsp-mode . lsp-headerline-breadcrumb-mode)
-           (lsp-headerline-breadcrumb-mode . batunii/lsp-modeline-setup))
-    :init
-    (setq lsp-keymap-prefix "C-c l")
-    :custom
-    (read-process-output-max (* 1024 1024))
-    :config
-    (lsp-enable-which-key-integration)
-   (setq lsp-diagnostic-level :error) 
-    ;; Breadcrumb configuration
-    (setq lsp-headerline-breadcrumb-enable t
-          lsp-headerline-breadcrumb-segments '(symbols))
-    
-    ;; Signature and documentation settings
-    (setq lsp-signature-auto-activate t
-          lsp-signature-render-documentation nil
-          lsp-eldoc-enable-signature-help t
-          eldoc-idle-delay 0.1
-          eldoc-echo-area-use-multiline-p t
-          max-mini-window-height 0.5)
-    
-    ;; Clean up mode-line
-    (setq lsp-modeline-code-actions-enable nil
-          lsp-modeline-diagnostics-enable nil
-          lsp-modeline-workspace-status-enable nil)
+    :after lsp-mode
+    :hook (python-ts-mode . lsp-pyright))
+    (use-package lsp-mode
+      :ensure t
+      :commands lsp
+      :diminish (lsp-mode . " LSP")
+      :hook ((python-ts-mode . lsp)
+             (c-ts-mode . lsp)
+             (c++-ts-mode . lsp)
+             (js-ts-mode . lsp)
+             (lsp-mode . lsp-headerline-breadcrumb-mode)
+             (lsp-headerline-breadcrumb-mode . batunii/lsp-modeline-setup))
+      :init
+      (setq lsp-keymap-prefix "C-c l")
+      :custom
+      (read-process-output-max (* 1024 1024))
+      :config
+      (lsp-enable-which-key-integration)
+     (setq lsp-diagnostic-level :error) 
+      ;; Breadcrumb configuration
+      (setq lsp-headerline-breadcrumb-enable t
+            lsp-headerline-breadcrumb-segments '(symbols))
+      
+      ;; Signature and documentation settings
+      (setq lsp-signature-auto-activate t
+            lsp-signature-render-documentation nil
+            lsp-eldoc-enable-signature-help t
+            eldoc-idle-delay 0.1
+            eldoc-echo-area-use-multiline-p t
+            max-mini-window-height 0.5)
+      
+      ;; Clean up mode-line
+      (setq lsp-modeline-code-actions-enable nil
+            lsp-modeline-diagnostics-enable nil
+            lsp-modeline-workspace-status-enable nil)
 
-  )
+    )
+  (use-package apheleia
+    :ensure t)
 
-  ;; Move breadcrumbs to mode-line
-  (defun batunii/lsp-modeline-setup ()
-    "Move LSP breadcrumbs to mode-line after buffer name."
-    (setq-local header-line-format nil)
-    (setq-local mode-line-format
-                (list
-                 ;; Left side
-                 "%e"
-                 mode-line-front-space
-                 mode-line-mule-info
-                 mode-line-client
-                 mode-line-modified
-                 mode-line-remote
-                 mode-line-frame-identification
-                 mode-line-buffer-identification
-                 " "
-                 ;; LSP Breadcrumbs
-                 '(:eval (when lsp-headerline-breadcrumb-mode
-                           (lsp-headerline--build-string)))
-                 " "
-                 ;; Right side
-                 mode-line-position
-                 (vc-mode vc-mode)
-                 " "
-                 mode-line-modes
-                 mode-line-misc-info
-                 mode-line-end-spaces)))
+    ;; Move breadcrumbs to mode-line
+    (defun batunii/lsp-modeline-setup ()
+      "Move LSP breadcrumbs to mode-line after buffer name."
+      (setq-local header-line-format nil)
+      (setq-local mode-line-format
+                  (list
+                   ;; Left side
+                   "%e"
+                   mode-line-front-space
+                   mode-line-mule-info
+                   mode-line-client
+                   mode-line-modified
+                   mode-line-remote
+                   mode-line-frame-identification
+                   mode-line-buffer-identification
+                   " "
+                   ;; LSP Breadcrumbs
+                   '(:eval (when lsp-headerline-breadcrumb-mode
+                             (lsp-headerline--build-string)))
+                   " "
+                   ;; Right side
+                   mode-line-position
+                   (vc-mode vc-mode)
+                   " "
+                   mode-line-modes
+                   mode-line-misc-info
+                   mode-line-end-spaces)))
 
-  ;; Show docs in minibuffer
-  (defun batunii/lsp-show-doc ()
-    "Show LSP documentation in minibuffer."
-    (interactive)
-    (if (lsp-feature? "textDocument/hover")
-        (let* ((hover-info (lsp-request "textDocument/hover" (lsp--text-document-position-params)))
-               (contents (when hover-info (gethash "contents" hover-info)))
-               (doc (when contents
-                      (if (stringp contents)
-                          contents
-                        (lsp--render-element contents)))))
-          (if doc
-              (message "%s" doc)
-            (message "No documentation available")))
-      (message "LSP hover not supported")))
+    ;; Show docs in minibuffer
+    (defun batunii/lsp-show-doc ()
+      "Show LSP documentation in minibuffer."
+      (interactive)
+      (if (lsp-feature? "textDocument/hover")
+          (let* ((hover-info (lsp-request "textDocument/hover" (lsp--text-document-position-params)))
+                 (contents (when hover-info (gethash "contents" hover-info)))
+                 (doc (when contents
+                        (if (stringp contents)
+                            contents
+                          (lsp--render-element contents)))))
+            (if doc
+                (message "%s" doc)
+              (message "No documentation available")))
+        (message "LSP hover not supported")))
 #+end_src
 
 ** Diagnostics
