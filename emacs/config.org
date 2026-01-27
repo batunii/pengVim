@@ -340,15 +340,7 @@
 
 ** LSP Mode
 #+begin_src emacs-lisp
-<<<<<<< Updated upstream
-(use-package lsp-pyright
-  :ensure t
-  :after lsp-mode
-  :hook (python-ts-mode . lsp-pyright))
-  (use-package lsp-mode
-=======
   (use-package lsp-pyright
->>>>>>> Stashed changes
     :ensure t
     :after lsp-mode
     :hook (python-ts-mode . lsp-pyright))
@@ -406,10 +398,13 @@
                    mode-line-frame-identification
                    mode-line-buffer-identification
                    " "
+                    'vc-mode
                    ;; LSP Breadcrumbs
                    '(:eval (when lsp-headerline-breadcrumb-mode
                              (lsp-headerline--build-string)))
-                   " "
+  		  " "
+                    mode-line-position
+  		  " "
                    ;; Right side
                    mode-line-position
                    (vc-mode vc-mode)
@@ -531,12 +526,19 @@
 
 * VERSION CONTROL
 #+begin_src emacs-lisp
-(use-package transient
-  :ensure t)
+  (use-package transient
+    :ensure t)
 
-(use-package magit
+  (use-package magit
+    :ensure t
+    :commands magit-status)
+
+  (use-package marginalia
   :ensure t
-  :commands magit-status)
+  :after vertico
+  :init
+  (marginalia-mode 1))
+
 #+end_src
 
 

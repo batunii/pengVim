@@ -289,10 +289,13 @@
                  mode-line-frame-identification
                  mode-line-buffer-identification
                  " "
+                  'vc-mode
                  ;; LSP Breadcrumbs
                  '(:eval (when lsp-headerline-breadcrumb-mode
                            (lsp-headerline--build-string)))
-                 " "
+		  " "
+                  mode-line-position
+		  " "
                  ;; Right side
                  mode-line-position
                  (vc-mode vc-mode)
@@ -394,6 +397,12 @@
 (use-package magit
   :ensure t
   :commands magit-status)
+
+(use-package marginalia
+:ensure t
+:after vertico
+:init
+(marginalia-mode 1))
 
 (defun batunii/load-file()
     "Load a file."
