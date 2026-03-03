@@ -1,6 +1,4 @@
 #+TITLE: GNU Emacs Config
-  WindowMaker window_maker(SCR, SCR);
-  GLFWwindow *window = window_maker.make_window();
 #+AUTHOR: batunii
 #+DESCRIPTION: A modern Emacs configuration with Evil, LSP, Tree-sitter, and completion
 #+STARTUP: showeverything
@@ -39,9 +37,10 @@
 - [[#version-control][VERSION CONTROL]]
   - [[#custom-function][Custom Function]]
   - [[#native-compilation][Native Compilation]]
-  - [[#tldr][TLDR;]]
+  - [[#tldr][TLDR]]
   - [[#glsl][GLSL]]
   - [[#compilation-window][Compilation Window]]
+  - [[#cmake][Cmake]]
 
 * PERFORMANCE OPTIMIZATIONS
 #+begin_src emacs-lisp
@@ -395,10 +394,10 @@
                    mode-line-client
                    mode-line-modified
                    mode-line-remote
+                    'vc-mode
+  		  " > "
                    mode-line-frame-identification
                    mode-line-buffer-identification
-                   " "
-                    'vc-mode
                    ;; LSP Breadcrumbs
                    '(:eval (when lsp-headerline-breadcrumb-mode
                              (lsp-headerline--build-string)))
@@ -406,7 +405,6 @@
                     mode-line-position
   		  " "
                    ;; Right side
-                   mode-line-position
                    (vc-mode vc-mode)
                    " "
                    mode-line-modes
@@ -466,15 +464,35 @@
 ** COMPLETION
 *** Minibuffer
 #+begin_src emacs-lisp
-(use-package vertico 
-  :ensure t 
-  :init (vertico-mode))
-
-(use-package orderless
+  (use-package smex
   :ensure t
-  :init
-  (setq completion-styles '(orderless basic)))
+  :bind
+  ("M-x" . smex)
+  ("M-X" . smex-major-mode-commands))
+
+(use-package ido-completing-read+
+  :ensure t
+  :config
+  (ido-mode 1)
+  (ido-everywhere 1)
+  (ido-ubiquitous-mode 1)
+  (setq ido-enable-flex-matching t
+        ido-use-virtual-buffers t
+        ido-create-new-buffer 'always
+        ido-completion-buffer nil))   
 #+end_src
+
+
+#   #+begin_src emacs-lisp
+#   (use-package vertico 
+#     :ensure t 
+#     :init (vertico-mode))
+
+#   (use-package orderless
+#     :ensure t
+#     :init
+#     (setq completion-styles '(orderless basic)))
+# #+end_src
 
 *** In-buffer (Company)
 #+begin_src emacs-lisp
@@ -486,7 +504,7 @@
          ("C-n" . company-select-next)
          ("C-p" . company-select-previous))
   :custom
-  (company-minimum-prefix-length 2)
+  (company-minimum-prefix-length 0)
   (company-idle-delay 0.2)
   (company-selection-wrap-around t)
   (company-tooltip-align-annotations t)
@@ -542,8 +560,6 @@
 #+end_src
 
 
-
-
 ** Custom Function
 #+begin_src emacs-lisp
      (defun batunii/load-file()
@@ -568,7 +584,7 @@
         native-comp-deferred-compilation t))  ; Compile packages in background
 #+end_src
 
-** TLDR;
+** TLDR
 
 #+begin_src emacs-lisp
   (use-package tldr
@@ -607,4 +623,10 @@
     (select-window win)))
 
 (add-hook 'compilation-start-hook #'batunii/select-compilation-window)
+#+end_src
+** Cmake
+#+begin_src emacs-lisp
+  (setq treesit-language-source-alist
+      '((cmake "https://github.com/uyha/tree-sitter-cmake" "master" "src")))
+
 #+end_src

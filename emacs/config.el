@@ -286,10 +286,10 @@
                  mode-line-client
                  mode-line-modified
                  mode-line-remote
+                  'vc-mode
+		  " > "
                  mode-line-frame-identification
                  mode-line-buffer-identification
-                 " "
-                  'vc-mode
                  ;; LSP Breadcrumbs
                  '(:eval (when lsp-headerline-breadcrumb-mode
                            (lsp-headerline--build-string)))
@@ -297,7 +297,6 @@
                   mode-line-position
 		  " "
                  ;; Right side
-                 mode-line-position
                  (vc-mode vc-mode)
                  " "
                  mode-line-modes
@@ -346,14 +345,22 @@
   :config
   (lsp-treemacs-sync-mode 1))
 
-(use-package vertico 
-  :ensure t 
-  :init (vertico-mode))
-
-(use-package orderless
+(use-package smex
   :ensure t
-  :init
-  (setq completion-styles '(orderless basic)))
+  :bind
+  ("M-x" . smex)
+  ("M-X" . smex-major-mode-commands))
+
+(use-package ido-completing-read+
+  :ensure t
+  :config
+  (ido-mode 1)
+  (ido-everywhere 1)
+  (ido-ubiquitous-mode 1)
+  (setq ido-enable-flex-matching t
+        ido-use-virtual-buffers t
+        ido-create-new-buffer 'always
+        ido-completion-buffer nil))   ;; <-- add this
 
 (use-package company
   :ensure t
@@ -363,7 +370,7 @@
          ("C-n" . company-select-next)
          ("C-p" . company-select-previous))
   :custom
-  (company-minimum-prefix-length 2)
+  (company-minimum-prefix-length 0)
   (company-idle-delay 0.2)
   (company-selection-wrap-around t)
   (company-tooltip-align-annotations t)
@@ -449,3 +456,6 @@
     (select-window win)))
 
 (add-hook 'compilation-start-hook #'batunii/select-compilation-window)
+
+(setq treesit-language-source-alist
+    '((cmake "https://github.com/uyha/tree-sitter-cmake" "master" "src")))
